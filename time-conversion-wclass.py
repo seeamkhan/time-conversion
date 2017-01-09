@@ -15,12 +15,14 @@ class Time_Formatter():
         am_pm = ''
         input_validation = False
         error_message = 'Unknown Error'
+        hour_separator = time_trimmed[2:3]
+        min_separator = time_trimmed[5:6]
 
         try:
             # Validate that the hour, minute and seconds in time input are in valid range.
             if (0 < int(time_trimmed[0:2]) < 13 and 0 <= int(time_trimmed[3:5]) < 60 and 0 <= int(time_trimmed[6:8]) < 60):
-                # Validate that the time input has hour, minute and second value in proper format. 
-                if (len(time_trimmed) == 10):
+                # Validate that the time input has hour, minute and second value in proper format.
+                if (len(time_trimmed) == 10) and ':' in hour_separator and ':' in min_separator:
                     # Check for AM/PM value and reassign am_pm accordingly.
                     if ("AM" in time_trimmed[8:]):
                         am_pm = 'am'
@@ -31,7 +33,7 @@ class Time_Formatter():
                     else:
                         error_message = 'Invalid AM/PM value.'
                 else:
-                    error_message = 'The time have more or less values then expected.'
+                    error_message = 'The time have unexpected values'
             else:
                 error_message = 'The hour should be in between 1 to 12, minute and second should be 0 to 59.'
         except:
